@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Website</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        #container {
+            width: 100%;
+            max-width: 600px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .options button {
+            display: block;
+            margin: 10px auto;
+            width: 80%;
+        }
+        .hidden { display: none; }
+        img.wrong-img {
+            width: 200px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- HOME PAGE -->
+        <div id="home-screen">
+            <h1>Start Quiz</h1>
+            <button id="start-btn">▶ Play</button>
+        </div>
+
+        <!-- LOADING SCREEN -->
+        <div id="loading-screen" class="hidden">
+            <h1>Loading...</h1>
+            <p>(This is intentionally taking very long 😈)</p>
+        </div>
+
+        <!-- QUESTION 1 -->
+        <div id="question1" class="hidden">
+            <h2>What is Kian's favorite food?</h2>
+            <div class="options">
+                <button class="q1-option">Pizza</button>
+                <button class="q1-option">Sushi</button>
+                <button class="q1-option">Burgers</button>
+                <button class="q1-option">Steak</button>
+            </div>
+        </div>
+
+        <!-- WRONG SCREEN FOR Q1 -->
+        <div id="q1-wrong" class="hidden">
+            <h1>WRONG ❌</h1>
+            <p>Ahahahahah that was WRONG</p>
+            <img class="wrong-img" src="https://i.imgur.com/MT4JXQF.png" />
+            <img class="wrong-img" src="https://i.imgur.com/MT4JXQF.png" />
+            <img class="wrong-img" src="https://i.imgur.com/MT4JXQF.png" />
+            <p>(Click anywhere to continue)</p>
+        </div>
+
+        <!-- QUESTION 2 -->
+        <div id="question2" class="hidden">
+            <h2>Who is the best at basketball?</h2>
+            <div class="options">
+                <button class="q2-option" data-answer="wrong">Lebron</button>
+                <button class="q2-option" data-answer="wrong">Kobe</button>
+                <button class="q2-option" data-answer="wrong">MJ</button>
+                <button class="q2-option" data-answer="correct">Bojun</button>
+            </div>
+        </div>
+
+        <!-- WRONG SCREEN Q2 -->
+        <div id="q2-wrong" class="hidden">
+            <h1>WRONG ❌</h1>
+            <p>The correct answer was Bojun</p>
+            <p>(Click anywhere to retry question)</p>
+        </div>
+
+        <!-- CORRECT SCREEN Q2 -->
+        <div id="q2-correct" class="hidden">
+            <h1>CORRECT ✅</h1>
+            <p>You chose the BEST answer: Bojun/p>
+        </div>
+    </div>
+
+    <script>
+        const home = document.getElementById("home-screen");
+        const loading = document.getElementById("loading-screen");
+        const q1 = document.getElementById("question1");
+        const q1Wrong = document.getElementById("q1-wrong");
+        const q2 = document.getElementById("question2");
+        const q2Wrong = document.getElementById("q2-wrong");
+        const q2Correct = document.getElementById("q2-correct");
+
+        document.getElementById("start-btn").onclick = () => {
+            home.classList.add("hidden");
+            loading.classList.remove("hidden");
+            
+            setTimeout(() => {
+                loading.classList.add("hidden");
+                q1.classList.remove("hidden");
+            }, 4000); // long load
+        };
+
+        document.querySelectorAll(".q1-option").forEach(btn => {
+            btn.onclick = () => {
+                q1.classList.add("hidden");
+                q1Wrong.classList.remove("hidden");
+            };
+        });
+
+        q1Wrong.onclick = () => {
+            q1Wrong.classList.add("hidden");
+            q2.classList.remove("hidden");
+        };
+
+        document.querySelectorAll(".q2-option").forEach(btn => {
+            btn.onclick = () => {
+                const isCorrect = btn.dataset.answer === "correct";
+                q2.classList.add("hidden");
+                if (isCorrect) {
+                    q2Correct.classList.remove("hidden");
+                } else {
+                    q2Wrong.classList.remove("hidden");
+                }
+            };
+        });
+
+        q2Wrong.onclick = () => {
+            q2Wrong.classList.add("hidden");
+            q2.classList.remove("hidden");
+        };
+    </script>
+</body>
+</html>
