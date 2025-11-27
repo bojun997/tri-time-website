@@ -103,6 +103,29 @@
             <p>You are very correct</p>
         </div>
     </div>
+        <!-- QUESTION 3 -->
+<div id="question3" class="hidden">
+    <h2>Wh</h2>
+    <div class="options">
+        <button class="q3-option" data-answer="wrong">Turtle</button>
+        <button class="q3-option" data-answer="correct">Cheetah</button>
+        <button class="q3-option" data-answer="wrong">Elephant</button>
+        <button class="q3-option" data-answer="wrong">Horse</button>
+    </div>
+</div>
+
+<!-- WRONG SCREEN Q3 -->
+<div id="q3-wrong" class="hidden">
+    <h1>WRONG ❌</h1>
+    <p>The correct answer was Cheetah</p>
+    <p>(Click anywhere to retry question)</p>
+</div>
+
+<!-- CORRECT SCREEN Q3 -->
+<div id="q3-correct" class="hidden">
+    <h1>CORRECT ✅</h1>
+    <p>Nice! You know your animals.</p>
+</div>
 
     <script>
         const home = document.getElementById("home-screen");
@@ -151,8 +174,30 @@
             q2Wrong.classList.add("hidden");
             q2.classList.remove("hidden");
         };
+        const q3 = document.getElementById("question3");
+const q3Wrong = document.getElementById("q3-wrong");
+const q3Correct = document.getElementById("q3-correct");
+
+document.querySelectorAll(".q3-option").forEach(btn => {
+    btn.onclick = () => {
+        const isCorrect = btn.dataset.answer === "correct";
+        q3.classList.add("hidden");
+        if (isCorrect) {
+            q3Correct.classList.remove("hidden");
+        } else {
+            q3Wrong.classList.remove("hidden");
+        }
+    };
+});
+
+q3Wrong.onclick = () => {
+    q3Wrong.classList.add("hidden");
+    q3.classList.remove("hidden");
+};
+
     </script>
 </body>
 </html>
+
 
 
